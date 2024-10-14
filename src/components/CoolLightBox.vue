@@ -1749,7 +1749,7 @@ export default {
       const rtId = this.getRutubeID(url)
       
       if(rtId) {
-        return `https://rutube.ru/play/embed/${rtId}`;
+        return `https://rutube.ru/play/embed/${rtId}?autoplay=1`;
       }
 
       return false
