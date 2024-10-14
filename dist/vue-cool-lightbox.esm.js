@@ -117,10 +117,7 @@ var AutoplayObserver = {
             var muted = 'muted';
 
             if (isRutubeVideo(el.src)) {
-                console.log("RUTUBE SETUP EVENT");
-
                 el.onload = function() {
-                    console.log("RUTUBE IS LOAD");
                     el.contentWindow.postMessage(JSON.stringify({type:'player:play', data:{}}), '*');
                 };
         
@@ -1522,7 +1519,7 @@ var script = {
     },
 
     getRutubeID: function getRutubeID(url) {
-        var videoId = url.split('/video/')[1].split('/')[0];
+        var videoId = url.includes('/video/') ? url.split('/video/')[1].split('/')[0] : null;
 
         if(videoId) {
             return videoId;
@@ -1548,7 +1545,7 @@ var script = {
       var rtId = this.getRutubeID(url);
       
       if(rtId) {
-        return ("https://rutube.ru/play/embed/" + rtId + "?autoplay=1");
+        return ("https://rutube.ru/play/embed/" + rtId + "?t=0");
       }
 
       return false

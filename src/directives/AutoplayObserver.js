@@ -39,10 +39,7 @@ export default {
             let muted = 'muted';
 
             if (isRutubeVideo(el.src)) {
-                console.log("RUTUBE SETUP EVENT");
-
                 el.onload = function() {
-                    console.log("RUTUBE IS LOAD");
                     el.contentWindow.postMessage(JSON.stringify({type:'player:play', data:{}}), '*');
                 }
         

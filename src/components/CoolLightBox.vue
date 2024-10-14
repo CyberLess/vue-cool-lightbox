@@ -1723,7 +1723,7 @@ export default {
     },
 
     getRutubeID(url) {
-        const videoId = url.split('/video/')[1].split('/')[0];
+        const videoId = url.includes('/video/') ? url.split('/video/')[1].split('/')[0] : null;
 
         if(videoId) {
             return videoId;
@@ -1749,7 +1749,7 @@ export default {
       const rtId = this.getRutubeID(url)
       
       if(rtId) {
-        return `https://rutube.ru/play/embed/${rtId}?autoplay=1`;
+        return `https://rutube.ru/play/embed/${rtId}?t=0`;
       }
 
       return false
