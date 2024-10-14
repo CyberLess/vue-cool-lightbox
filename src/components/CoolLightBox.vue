@@ -724,7 +724,7 @@ export default {
 
         if(prev !== null) {
           if(prev !== val) {
-            if(!this.getYoutubeUrl(this.getItemSrc(prev)) && !this.getVimeoUrl(this.getItemSrc(prev))) {
+            if(!this.getYoutubeUrl(this.getItemSrc(prev)) && !this.getVimeoUrl(this.getItemSrc(prev)) && !this.getRutubeUrl(this.getItemSrc(prev))) {
               this.stopVideos()
             }
           }
@@ -1700,10 +1700,15 @@ export default {
 
       const youtubeUrl = this.getYoutubeUrl(itemSrc)
       const vimeoUrl = this.getVimeoUrl(itemSrc)
+      const rutubeUrl = this.getRutubeUrl(itemSrc)
       const mp4Url = this.checkIsMp4(itemSrc)
 
       if(youtubeUrl) {
         return youtubeUrl
+      }
+
+      if(rutubeUrl) {
+        return rutubeUrl
       }
 
       if(vimeoUrl) {
@@ -1717,6 +1722,15 @@ export default {
       return false
     },
 
+    getRutubeID(url) {
+        const videoId = url.split('/video/')[1].split('/')[0];
+
+        if(videoId) {
+            return videoId;
+        }
+
+        return false;
+    },
     // getYoutube ID
     getYoutubeID(url) {
 
@@ -1726,6 +1740,16 @@ export default {
 
       if(ytId) {
         return ytId
+      }
+
+      return false
+    },
+
+    getRutubeUrl(url) {
+      const rtId = this.getRutubeID(url)
+      
+      if(rtId) {
+        return `https://rutube.ru/play/embed/${rtId}`;
       }
 
       return false
