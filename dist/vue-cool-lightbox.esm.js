@@ -502,7 +502,7 @@ var script = {
 
         if(prev !== null) {
           if(prev !== val) {
-            if(!this$1.getYoutubeUrl(this$1.getItemSrc(prev)) && !this$1.getVimeoUrl(this$1.getItemSrc(prev))) {
+            if(!this$1.getYoutubeUrl(this$1.getItemSrc(prev)) && !this$1.getVimeoUrl(this$1.getItemSrc(prev)) && !this$1.getRutubeUrl(this$1.getItemSrc(prev))) {
               this$1.stopVideos();
             }
           }
@@ -1479,10 +1479,15 @@ var script = {
 
       var youtubeUrl = this.getYoutubeUrl(itemSrc);
       var vimeoUrl = this.getVimeoUrl(itemSrc);
+      var rutubeUrl = this.getRutubeUrl(itemSrc);
       var mp4Url = this.checkIsMp4(itemSrc);
 
       if(youtubeUrl) {
         return youtubeUrl
+      }
+
+      if(rutubeUrl) {
+        return rutubeUrl
       }
 
       if(vimeoUrl) {
@@ -1496,6 +1501,15 @@ var script = {
       return false
     },
 
+    getRutubeID: function getRutubeID(url) {
+        var videoId = url.split('/video/')[1].split('/')[0];
+
+        if(videoId) {
+            return videoId;
+        }
+
+        return false;
+    },
     // getYoutube ID
     getYoutubeID: function getYoutubeID(url) {
 
@@ -1505,6 +1519,16 @@ var script = {
 
       if(ytId) {
         return ytId
+      }
+
+      return false
+    },
+
+    getRutubeUrl: function getRutubeUrl(url) {
+      var rtId = this.getRutubeID(url);
+      
+      if(rtId) {
+        return ("https://rutube.ru/play/embed/" + rtId);
       }
 
       return false
