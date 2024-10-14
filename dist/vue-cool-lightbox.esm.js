@@ -92,6 +92,15 @@ var AutoplayObserver = {
         return false;
       }
 
+      function isRutubeVideo(url) {
+        if (!url) {
+            return false;
+        }
+
+        var isRutube = url.includes('rutube.ru');
+        return isRutube;
+      }
+
       function autoplayVideo() {
         var tagName = el.tagName;
         var autoplay = el.dataset.autoplay; 
@@ -106,6 +115,17 @@ var AutoplayObserver = {
           if(tagName === 'IFRAME') {
             var url = new URL(el.src);
             var muted = 'muted';
+
+            if (isRutubeVideo(el.src)) {
+                console.log("RUTUBE SETUP EVENT");
+
+                el.onload = function() {
+                    console.log("RUTUBE IS LOAD");
+                    el.contentWindow.postMessage(JSON.stringify({type:'player:play', data:{}}), '*');
+                };
+        
+                return;
+            }
 
             if(isYoutubeVideo(el.src)) {
               muted = 'mute';
